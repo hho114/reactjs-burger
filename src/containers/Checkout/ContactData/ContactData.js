@@ -21,7 +21,7 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
             customer: {
-                name: "Alex Ho",
+                name: "Alex",
                 address: {
                     stress: "test stress 1",
                     zipcode: "54321",
@@ -30,6 +30,7 @@ class ContactData extends Component {
                 email: "test@test.com",
 
             },
+            orderTime : new Date().toLocaleString(),
             deliveryMethod: "fastest"
         }
         axios.post('/orders.json', order)
