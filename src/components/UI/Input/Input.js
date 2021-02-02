@@ -7,7 +7,7 @@ const input = (props) => {
     let validationError = null;
     let inputElement = null;
     const InputStyles = [styles.InputElement];
-    if (props.invalid && props.shouldValidate && props.tounched) {
+    if (props.invalid && props.shouldValidate && props.touched) {
         InputStyles.push(styles.Invalid);
         validationError = <p>Please enter a valid value!</p>;
     }
