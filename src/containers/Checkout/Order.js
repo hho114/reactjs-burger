@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Order.module.css';
 
 const order = (props) => {
+    // console.log(props.datetime);
     const ingredients = [];
     for (let ingredientName in props.ingredients) {
         ingredients.push({
@@ -23,8 +24,9 @@ const order = (props) => {
     });
     return (
         <div className={styles.Order}>
-            <p>  Ingredients: {ingredientOutput}</p>
+            <p> Ingredients: {ingredientOutput}</p>
             <p> Price: <strong>USD {Number.parseFloat(props.price).toFixed(2)}</strong></p>
+            <p> Datetime: <strong>{props.datetime}</strong></p>
         </div>
     );
 };
