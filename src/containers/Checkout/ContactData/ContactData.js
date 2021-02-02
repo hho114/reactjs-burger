@@ -7,7 +7,7 @@ import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
-
+import {updateObject} from '../../../shared/utility';
 class ContactData extends Component {
     state = {
         orderForm:{
@@ -24,7 +24,7 @@ class ContactData extends Component {
                     
                 },
                 valid: false,
-                tounched: false
+                touched: false
         
             },
             
@@ -39,7 +39,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                tounched: false
+                touched: false
             },
             zipcode: {
                 elementType:'input',
@@ -52,7 +52,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                tounched: false
+                touched: false
             },
             country: {
                 elementType:'input',
@@ -65,7 +65,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                tounched: false
+                touched: false
             },
             
             email: {
@@ -79,7 +79,7 @@ class ContactData extends Component {
                     required: true
                 },
                 valid: false,
-                tounched: false
+                touched: false
             },
 
             deliveryMethod: {
@@ -127,16 +127,16 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier )=>{
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = 
-        {...updatedOrderForm[inputIdentifier]};
-
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.tounched = true;
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        
+        const updatedFormElement =  updateObject(this.state.orderForm[inputIdentifier],{
+            value:event.target.value,
+            valid:this.checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched:true
+        });
+        const updatedOrderForm = updateObject(this.state.orderForm,{
+            [inputIdentifier]: updatedFormElement
+        });
+        
         
         let formValid = true;
 
@@ -162,9 +162,10 @@ class ContactData extends Component {
             ingredients: this.props.ings,
             price: this.props.price,
             orderTime : new Date().toLocaleString(),
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
 
     }
     render() {
@@ -188,7 +189,7 @@ class ContactData extends Component {
                         value = {formElement.config.value}
                         invalid = {!formElement.config.valid}
                         shouldValidate = {formElement.config.validation}
-                        tounched = {formElement.config.tounched}
+                        touched = {formElement.config.touched}
                         changed = {(event)=>this.inputChangedHandler(event,formElement.id) } />
                     ))}
             
@@ -211,13 +212,15 @@ const mapStateToProps = state =>{
     return{
         ings:state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        loading:state.order.loading
+        loading:state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
 const mapDispatchToProps = dispatch =>{
     return{
-        onOrderBurger:(orderData)=>dispatch(actions.purchaseBurger(orderData))
+        onOrderBurger:(orderData,token)=>dispatch(actions.purchaseBurger(orderData,token))
 
     };
 };
