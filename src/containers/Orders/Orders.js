@@ -30,7 +30,6 @@ class Orders extends Component {
                     )
                     );
 
-                    console.log(orders);
         }
         return (
             <div>
