@@ -2,8 +2,6 @@
 
 Check out live project [here](https://reactjs-burger-ff2b1.web.app/).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 Implement reactjs foundations:
 
 - Basic reactjs
@@ -14,5 +12,9 @@ Implement reactjs foundations:
 - Redux
 - Testing
 - Deploy
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 
