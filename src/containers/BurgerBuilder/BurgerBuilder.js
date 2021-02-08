@@ -11,7 +11,7 @@ import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 
     state = {
         // ingredients: null,
