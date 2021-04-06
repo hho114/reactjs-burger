@@ -14,6 +14,8 @@ export default httpClient => {
       }
     );
 
+    
+
     useEffect(() => {
       return () => {
         httpClient.interceptors.request.eject(reqInterceptor);
